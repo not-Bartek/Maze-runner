@@ -1,0 +1,13 @@
+# Pliki środowiska wirtualnego
+.venv/
+venv/
+
+# Pliki tymczasowe
+__pycache__/
+
+# Pliki konfiguracyjne edytorów
+.vscode/
+.idea/
+
+# Pliki systemowe
+.DS_Store

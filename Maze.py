@@ -9,12 +9,43 @@ class Maze:
         self.width = width
         self.height = height
         self.maze = [[1 for _ in range(width)] for _ in range(height)]
-        self.start = (2* random.randint(1, width//2) - 1, 2 * random.randint(1, height//2) - 1)
-        x, y = self.start
-        self.maze[y][x] = 2
-        self.end = None
         
-    
+       
+        self.start = None
+        self.end = None
+        self._generate()
+
+    def _generate(self):
+        self.start = (2* random.randint(1, self.width//2) - 1, 2 * random.randint(1, self.height//2) - 1)
+        x,y = self.start
+
+        self.maze[y][x] = 0
+        self._carve(x, y)
+
+        self.maze[y][x] = 2
+        
+        while True:
+            point = (2* random.randint(1, self.width//2) - 1, 2 * random.randint(1, self.height//2) - 1)
+            ex, ey = point
+            if self.maze[ey][ex] == 0 and (ex != x or ex):
+                self.maze[ey][ex] = 3
+                self.end = (ex, ey)
+                break
+
+
+
+    def _carve(self, x, y):
+        directions = [(0,2), (0,-2), (2,0), (-2,0)]
+        random.shuffle(directions)
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
+            if 1 <= nx < self.width-1 and 1 <= ny < self.height-1:
+                if self.maze[ny][nx] == 1:
+                    self.maze[ny-dy//2][nx-dx//2] = 0
+                    self.maze[ny][nx] = 0
+                    self._carve(nx, ny)
+
+
     def print(self):
         chars = {0: ' ', 1: '#', 2: 'S', 3: 'E'}
         for row in self.maze:
