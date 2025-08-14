@@ -30,14 +30,14 @@ def paint_route(algorithm, canvas, debug=False):
             j, i = square
             canvas.create_rectangle(20*j, 20*i, 20*(j+1), 20*(i+1), fill="#76e6ff")
 def reset_canva(maze, canvas):
-    
+    canvas.delete("all")  # Usuwa wszystkie elementy z kanwy
     for i in range(maze.height):
         for j in range(maze.width):
             canvas.create_rectangle(20*j, 20*i, 20*(j+1), 20*(i+1), fill=color_dict[maze.maze[i][j]])
     canvas.update()
 
 def on_b(event):
-    paint_route('bfs', canvas)
+    paint_route('bfs', canvas, debug=True)
 def on_d(event):
     paint_route('dfs', canvas)
 def on_r(event):
