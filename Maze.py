@@ -34,7 +34,7 @@ class Maze:
 
 
 
-    def _carve(self, x, y):
+    def _carve(self, x, y, recursion=False):
         stack = [(x, y)]
         while stack:
             cx, cy = stack.pop()
