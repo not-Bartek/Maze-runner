@@ -35,15 +35,18 @@ class Maze:
 
 
     def _carve(self, x, y):
-        directions = [(0,2), (0,-2), (2,0), (-2,0)]
-        random.shuffle(directions)
-        for dx, dy in directions:
-            nx, ny = x + dx, y + dy
-            if 1 <= nx < self.width-1 and 1 <= ny < self.height-1:
-                if self.maze[ny][nx] == 1:
-                    self.maze[ny-dy//2][nx-dx//2] = 0
-                    self.maze[ny][nx] = 0
-                    self._carve(nx, ny)
+        stack = [(x, y)]
+        while stack:
+            cx, cy = stack.pop()
+            directions = [(0, 2), (0, -2), (2, 0), (-2, 0)]
+            random.shuffle(directions)
+            for dx, dy in directions:
+                nx, ny = cx + dx, cy + dy
+                if 1 <= nx < self.width-1 and 1 <= ny < self.height-1:
+                    if self.maze[ny][nx] == 1:
+                        self.maze[ny-dy//2][nx-dx//2] = 0
+                        self.maze[ny][nx] = 0
+                        stack.append((nx, ny))
 
 
     def print(self):

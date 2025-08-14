@@ -1,11 +1,13 @@
 import time
 import gc
+from config import CELL_SIZE
+from config import STEP_TIME
 
 class DFS:
     def color_square(self, canvas, x, y):
-        canvas.create_rectangle(20*x, 20*y, 20*(x+1), 20*(y+1), fill="#a7bdff")
+        canvas.create_rectangle(CELL_SIZE*x, CELL_SIZE*y, CELL_SIZE*(x+1), CELL_SIZE*(y+1), fill="#cbebff")
 
-    def calculate(self, maze, root, canvas):
+    def calculate(self, maze, root, canvas, animation = True):
         gc.collect()
         visited = [[False for _ in range(maze.width)] for _ in range(maze.height)]
         parents = {}
@@ -21,8 +23,10 @@ class DFS:
                 
                 if(actual != maze.start and actual != maze.end):
                     self.color_square(canvas, x, y)
-                    canvas.update()
-                    time.sleep(0.001)
+                    if animation:
+                        canvas.update()
+                    
+                    time.sleep(STEP_TIME)
 
                 visited[y][x] = True
                 if actual == maze.end:

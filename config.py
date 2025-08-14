@@ -1,0 +1,2 @@
+CELL_SIZE = 3
+STEP_TIME = 0

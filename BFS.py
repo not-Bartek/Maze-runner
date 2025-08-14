@@ -1,11 +1,14 @@
 from collections import deque
 import gc
 import time
+from config import CELL_SIZE
+from config import STEP_TIME
+
 class BFS:
     def color_square(self, canvas, x, y):
-        canvas.create_rectangle(20*x, 20*y, 20*(x+1), 20*(y+1), fill="#f6ccff")
+        canvas.create_rectangle(CELL_SIZE*x, CELL_SIZE*y, CELL_SIZE*(x+1), CELL_SIZE*(y+1), fill="#f6ccff")
 
-    def calculate(self, maze, actual, canvas):
+    def calculate(self, maze, actual, canvas, animation=True):
         gc.collect()
         visited = [[False for _ in range(maze.width)] for _ in range(maze.height)]
         parents = {}
@@ -20,8 +23,9 @@ class BFS:
 
             if(actual != maze.start and actual != maze.end):
                 self.color_square(canvas, x, y)
-                canvas.update()
-                time.sleep(0.001)
+                if animation:
+                    canvas.update()
+                time.sleep(STEP_TIME)
 
             childs = []
             directions = [(0,1), (0,-1), (1,0), (-1,0)]
@@ -52,5 +56,5 @@ class BFS:
                         del parents
                         gc.collect()
                         return route
-        print("brak ścieżki")   
+        print("brak ścieżki")
 
