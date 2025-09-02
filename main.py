@@ -7,8 +7,8 @@ from config import CELL_SIZE
 
 #TODO Implement deleting canva instead of rewriting with new object (speed loss)
 
-MAZE_WIDTH = 270
-MAZE_HEIGHT = 270
+MAZE_WIDTH = 30
+MAZE_HEIGHT = 30
  # Rozmiar jednej kratki w pikselach
 
 def paint_route(algorithm, canvas, debug=False, animation=True):
@@ -21,7 +21,7 @@ def paint_route(algorithm, canvas, debug=False, animation=True):
             print(f'Czas wykonania bfs {end - start:.4f}, wielkość canvy: {len(canvas.find_all())}')
         for square in route:
             j, i = square
-            canvas.create_rectangle(CELL_SIZE*j, CELL_SIZE*i, CELL_SIZE*(j+1), CELL_SIZE*(i+1), fill="#b7ff00")
+            canvas.create_rectangle(CELL_SIZE*j, CELL_SIZE*i, CELL_SIZE*(j+1), CELL_SIZE*(i+1), fill="#ff00d9")
     elif algorithm == 'dfs':
         dfs = DFS()
         start = time.time()
@@ -31,7 +31,7 @@ def paint_route(algorithm, canvas, debug=False, animation=True):
             print(f'Czas wykonania dfs {end - start:.4f}, wielkość canvy: {len(canvas.find_all())}')
         for square in route:
             j, i = square
-            canvas.create_rectangle(CELL_SIZE*j, CELL_SIZE*i, CELL_SIZE*(j+1), CELL_SIZE*(i+1), fill="#1100ff")
+            canvas.create_rectangle(CELL_SIZE*j, CELL_SIZE*i, CELL_SIZE*(j+1), CELL_SIZE*(i+1), fill="#0061a1")
 def reset_canva(maze, canvas):
     canvas.delete("all")  # Usuwa wszystkie elementy z kanwy
     for i in range(maze.height):
